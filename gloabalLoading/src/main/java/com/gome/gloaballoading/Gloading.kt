@@ -104,6 +104,7 @@ class Gloading private constructor() {
         private var mData: Any? = null
         private var curState: Int = 0
         private var mCurStatusView: View? = null
+
         // 缓存四个状态的view
         private val mStatusViews = SparseArray<View>(4)
 
@@ -111,7 +112,7 @@ class Gloading private constructor() {
             if (curState == status) return
             curState = status
             var convertView = mStatusViews[status]
-            convertView?:let { convertView = mCurStatusView }
+            convertView ?: let { convertView = mCurStatusView }
             try {
                 val view = mAdapter.getView(this, convertView, status)
                 if (view != mCurStatusView || mWrapper.indexOfChild(view) < 0) {
@@ -136,6 +137,36 @@ class Gloading private constructor() {
             }
         }
 
+        fun getContext() = mContext
+
+        /**
+         * get wrapper
+         * @return 包装容器
+         */
+        fun getWrapper() = mWrapper
+
+        /**
+         * get retryTask
+         * @return 重试任务
+         *
+         */
+        fun getRetryTask() = mRetryTask
+
+        /**
+         * 返回携带的数据
+         *
+         * @param T 返回类型
+         * @return 携带的data 当和传入的泛型类不一致
+         */
+        fun <T> getData(): T? {
+            try {
+                return mData as? T
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return null
+        }
+
         /**
          * 设置重试任务
          *
@@ -152,9 +183,9 @@ class Gloading private constructor() {
          *
          * @param data
          */
-        fun withData(data: Any) {
+        fun withData(data: Any?): Holder {
             this.mData = data
-            this
+            return this
         }
 
         fun showLoading() = showLoadingStatus(STATUS_LOADING)
