@@ -1,4 +1,3 @@
 rootProject.name = "GlobalLoading"
 include ':app'
-include ':app:globalloading'
 include ':gloabalLoading'

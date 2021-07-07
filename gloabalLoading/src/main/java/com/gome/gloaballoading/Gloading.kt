@@ -88,7 +88,7 @@ class Gloading private constructor() {
      */
     fun cover(view: View): Holder {
         val parent = view.parent
-            ?: throw RuntimeException(message = "view has no parent to show gloading as cover!")
+            ?: throw RuntimeException("view has no parent to show gloading as cover!")
         val viewGroup = parent as ViewGroup
         val coverLayout = FrameLayout(view.context)
         viewGroup.addView(coverLayout, view.layoutParams)
@@ -199,5 +199,5 @@ class Gloading private constructor() {
 }
 
 interface GAdapter {
-    fun getView(holder: Gloading.Holder, convertView: View, status: Int): View
+    fun getView(holder: Gloading.Holder, convertView: View?, status: Int): View
 }
