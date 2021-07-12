@@ -10,29 +10,41 @@ import com.gome.gloaballoading.Gloading
  */
 
 open class BaseActivity : AppCompatActivity() {
-    private val mHolder by lazy {
-        Gloading.mDefault.wrap(this).withRetry {
-            onLoadRetry()
+    protected lateinit var mHolder: Gloading.Holder
+
+    private fun initLoadingStatusViewIfNeed() {
+        if (!this::mHolder.isInitialized) {
+            setHolder(Gloading.mDefault.wrap(this).withRetry {
+                onLoadRetry()
+            })
         }
     }
 
-    protected fun onLoadRetry() {
+    protected fun setHolder(holder: Gloading.Holder) {
+        mHolder = holder
+    }
+
+    protected open fun onLoadRetry() {
         Log.d("TAG", "运行重试invoked ")
     }
 
     fun showLoading() {
+        initLoadingStatusViewIfNeed()
         mHolder.showLoading()
     }
 
     fun showLoadSuccess() {
+        initLoadingStatusViewIfNeed()
         mHolder.showLoadSuccess()
     }
 
     fun showLoadFailed() {
+        initLoadingStatusViewIfNeed()
         mHolder.showLoadFailed()
     }
 
     fun showEmpty() {
+        initLoadingStatusViewIfNeed()
         mHolder.showEmpty()
     }
 }

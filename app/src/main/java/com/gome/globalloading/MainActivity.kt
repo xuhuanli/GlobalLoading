@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.button3.setOnClickListener {
-
+            startActivity(Intent(this, LoadingWrapViewActivity::class.java))
         }
     }
 }

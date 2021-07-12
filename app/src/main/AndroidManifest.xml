@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".LoadingSuccessActivity" />
         <activity android:name=".LoadingFailActivity" />
+        <activity android:name=".LoadingWrapViewActivity" />
     </application>
 
 </manifest>
